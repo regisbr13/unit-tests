@@ -56,7 +56,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MyClasses\MyClasses.csproj">
+    <ProjectReference Include="..\..\src\MyClasses\MyClasses.csproj">
       <Project>{aae95735-e843-4fb3-9a85-1e7798a71a1f}</Project>
       <Name>MyClasses</Name>
     </ProjectReference>

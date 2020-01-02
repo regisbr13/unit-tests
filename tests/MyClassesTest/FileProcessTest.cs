@@ -8,22 +8,49 @@
     [TestClass]
     public class FileProcessTest
     {
-        private readonly FileProcess fileProcess = new FileProcess();
+        public TestContext TestContext { get; set; }
+
+        private FileProcess fileProcess;
         private string fullPath;
+
+        #region Test Initialize and Clenup
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            this.fileProcess = new FileProcess();
+            this.fullPath = $@"{TestContext.DeploymentDirectory}\TestFile.txt";
+            if (TestContext.TestName == "WhenFileNameDoesExistsShouldReturnTrue")
+            {
+                using (File.Create(fullPath))
+                {
+                    TestContext.WriteLine("Creating file: " + this.fullPath);
+                }
+            }
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            if (TestContext.TestName == "WhenFileNameDoesExistsShouldReturnTrue")
+            {
+                File.Delete(this.fullPath);
+                TestContext.WriteLine("Deleting file: " + this.fullPath);
+            }
+        }
+        #endregion
 
         [TestMethod]
         public void WhenFileNameDoesExistsShouldReturnTrue()
         {
-            this.CreateTestFile();
+            TestContext.WriteLine("Testing file: " + this.fullPath);
             bool fromCall = fileProcess.FileExists(fullPath);
-            this.DeleteTestFile();
-            Assert.IsTrue(fromCall);
+            Assert.IsTrue(fromCall, "The file exists");
         }
 
         [TestMethod]
         public void WhenFileNameDoesNotExistsShouldReturnFalse()
         {
-            string fullPath = @"C:\Test.txt";       
+            string fullPath = this.fullPath;       
             bool fromCall = fileProcess.FileExists(fullPath);
             Assert.IsFalse(fromCall);
         }
@@ -51,18 +78,11 @@
             Assert.Fail($"Expected Fail:");
         }
 
-        private void CreateTestFile()
+        [TestMethod]
+        [Timeout(2000)]
+        public void SimulateTimeOut()
         {
-            this.fullPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\Test.txt";
-            using (File.Create(fullPath))
-            {
-
-            }
-        }
-
-        private void DeleteTestFile()
-        {
-            File.Delete(this.fullPath);
+            System.Threading.Thread.Sleep(1000);
         }
     }
 }
