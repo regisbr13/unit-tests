@@ -49,8 +49,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TimeOutSimulation.cs" />
     <Compile Include="FileProcessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AssertClassTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

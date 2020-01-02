@@ -28,5 +28,14 @@ namespace MyClassesTest
             //Assert.AreNotSame(x, y);
         }
         #endregion
+
+        #region IsInstanceTypeOf Tests
+        [TestMethod]
+        public void IsInstanceTypeOfTest()
+        {
+            var x = new FileProcess();
+            Assert.IsInstanceOfType(x, typeof(FileProcess));
+        }
+        #endregion
     }
 }

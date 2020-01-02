@@ -44,7 +44,7 @@
         {
             TestContext.WriteLine("Testing file: " + this.fullPath);
             bool fromCall = fileProcess.FileExists(fullPath);
-            Assert.IsTrue(fromCall, "The file exists");
+            Assert.IsTrue(fromCall);
         }
 
         [TestMethod]
@@ -76,13 +76,6 @@
                 return;
             }
             Assert.Fail($"Expected Fail:");
-        }
-
-        [TestMethod]
-        [Timeout(2000)]
-        public void SimulateTimeOut()
-        {
-            System.Threading.Thread.Sleep(1000);
         }
     }
 }
