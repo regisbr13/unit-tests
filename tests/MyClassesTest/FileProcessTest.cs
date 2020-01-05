@@ -13,12 +13,13 @@
         private FileProcess fileProcess;
         private string fullPath;
 
-        #region Test Initialize and Clenup
+        #region Test Initialize and Cleanup
         [TestInitialize]
         public void TestInitialize()
         {
             this.fileProcess = new FileProcess();
             this.fullPath = $@"{TestContext.DeploymentDirectory}\TestFile.txt";
+
             if (TestContext.TestName == "WhenFileNameDoesExistsShouldReturnTrue")
             {
                 using (File.Create(fullPath))
